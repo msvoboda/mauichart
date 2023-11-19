@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiChartApp", "MauiChartApp\MauiChartApp.csproj", "{FC96D7BA-4DBF-43DC-8B66-A44A4AA82E6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiCommon", "MauiCommon\MauiCommon.csproj", "{277D2F63-EBA1-4CC8-ACAC-65B182BDA830}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC96D7BA-4DBF-43DC-8B66-A44A4AA82E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC96D7BA-4DBF-43DC-8B66-A44A4AA82E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC96D7BA-4DBF-43DC-8B66-A44A4AA82E6E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FC96D7BA-4DBF-43DC-8B66-A44A4AA82E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC96D7BA-4DBF-43DC-8B66-A44A4AA82E6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC96D7BA-4DBF-43DC-8B66-A44A4AA82E6E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{277D2F63-EBA1-4CC8-ACAC-65B182BDA830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277D2F63-EBA1-4CC8-ACAC-65B182BDA830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277D2F63-EBA1-4CC8-ACAC-65B182BDA830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277D2F63-EBA1-4CC8-ACAC-65B182BDA830}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4F6B778A-DFC6-4335-BC3D-BD4CB756A11B}
+	EndGlobalSection
+EndGlobal

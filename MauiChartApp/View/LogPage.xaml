@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiChartApp.View.LogPage"
+             xmlns:model="clr-namespace:MauiChartApp.Entity"             
+             Title="{Binding Title}">
+    <RefreshView Command="{Binding GetLogCommand}" 
+              IsRefreshing="{Binding IsRefreshing}" VerticalOptions="FillAndExpand">
+        <CollectionView ItemsSource="{Binding Items}" SelectionMode="None" VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:LogItem">
+                    <Grid Padding="4" ColumnDefinitions="*, auto">
+                        <Frame HeightRequest="70" Grid.Column="0">
+                            <HorizontalStackLayout Padding="5" Spacing="5">
+                                <Label Text="{Binding Type}"></Label>
+                                <Label Text="{Binding DateTime}"></Label>
+                                <Label Text="{Binding Message}"></Label>
+                            </HorizontalStackLayout>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
+</ContentPage>
