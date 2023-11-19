@@ -2,20 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiChartApp.View.LogPage"
-             xmlns:model="clr-namespace:MauiChartApp.Entity"             
+             xmlns:model="clr-namespace:MauiChartApp.Entity"         
+             xmlns:conv="clr-namespace:MauiChartApp.Converters"
              Title="{Binding Title}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:LogItemTypeConverter x:Key="LogItemTypeConverter" />
+            <conv:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <RefreshView Command="{Binding GetLogCommand}" 
               IsRefreshing="{Binding IsRefreshing}" VerticalOptions="FillAndExpand">
         <CollectionView ItemsSource="{Binding Items}" SelectionMode="None" VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:LogItem">
-                    <Grid Padding="4" ColumnDefinitions="*, auto">
+                    <Grid Padding="1" ColumnDefinitions="*, auto">
                         <Frame HeightRequest="70" Grid.Column="0">
-                            <HorizontalStackLayout Padding="5" Spacing="5">
-                                <Label Text="{Binding Type}"></Label>
-                                <Label Text="{Binding DateTime}"></Label>
-                                <Label Text="{Binding Message}"></Label>
-                            </HorizontalStackLayout>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}"></Label>
+                                <HorizontalStackLayout Padding="1" Spacing="5">
+                                        <Label Text="{Binding Type}" TextColor="{Binding Type,Converter={StaticResource LogItemTypeConverter}}"></Label>
+                                        <Label Text="{Binding Message}" TextColor="{Binding Type,Converter={StaticResource LogItemTypeConverter}}"></Label>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
                         </Frame>
                     </Grid>
                 </DataTemplate>

@@ -18,10 +18,10 @@ namespace MauiChartApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("OpenSans-Medium.ttf", "sans-serif-medium");
-                });
+                });            
 
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "chartapp.db3");
             builder.Services.AddSingleton<ILogService>(new LogService(dbPath));         
@@ -31,7 +31,7 @@ namespace MauiChartApp
 
             builder.Services.AddSingleton<MainPageModelView>();
             builder.Services.AddSingleton<LogPageViewModel>();
-
+            
             return builder.Build();
         }
     }

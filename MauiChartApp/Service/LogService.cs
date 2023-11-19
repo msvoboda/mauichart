@@ -7,9 +7,9 @@ namespace MauiChartApp.Service
 
     public static class LogOptions
     {
-        public static char Delimiter = '>';
-        public static string[] Category = new string[] { "Debug", "Info", "Warning", "Error", "FatalError", "Custom" };
-        public static string DateTimeMask = "[yyyy.MM.dd HH:mm:ss.fff]";
+        public static char Delimiter = '>';        
+        public static string DateTimeMask = "yyyy.MM.dd HH:mm:ss";
+
         public static string LogTime()
         {
             DateTime now = DateTime.Now;
@@ -36,7 +36,7 @@ namespace MauiChartApp.Service
             
             conn = new SQLiteConnection(_dbPath);           
             conn.CreateTable<LogItem>();
-            Info("DB Inizialization.");
+            Info($"DB Inizialization. Path:{_dbPath}");
 
         }
         public List<LogItem> LogItems()

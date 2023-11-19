@@ -1,5 +1,6 @@
 ﻿using Common.ViewModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MauiChartApp.Entity;
 using MauiChartApp.Service;
 using System;
@@ -26,7 +27,7 @@ namespace MauiChartApp.ViewModel
         [ObservableProperty]
         bool isRefreshing;
 
-
+        [RelayCommand]
         async Task GetLogList()
         {
             if (IsLoading) return;
@@ -35,13 +36,16 @@ namespace MauiChartApp.ViewModel
                 IsLoading = true;
 
                 Items = new ObservableCollection<LogItem>(_logService.LogItems());
+                _logService.Debug($"Log Items: {Items.Count}");
             }
             catch(Exception ex)
-            {
-                IsLoading=false;
+            {                
                 _logService.Error(ex.ToString());
             }
-            finally { IsLoading = false; }
+            finally { 
+                IsLoading = false;
+                IsRefreshing = false;
+            }
         }
 
     }
