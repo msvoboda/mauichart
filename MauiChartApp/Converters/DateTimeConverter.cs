@@ -1,4 +1,4 @@
-﻿using MauiChartApp.Service;
+﻿using MauiCommon.Service;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

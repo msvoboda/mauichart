@@ -5,9 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MauiCommon.Model;
-using MauiChartApp.Service;
 
-namespace MauiChartApp.Entity
+namespace MauiCommon.Entity
 {
     [Table("Log")]
     public class LogItem : BaseEntity

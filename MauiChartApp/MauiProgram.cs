@@ -1,8 +1,9 @@
 ﻿using MauiChartApp.ModelView;
-using MauiChartApp.Service;
+using MauiCommon.Service;
 using MauiChartApp.View;
 using MauiChartApp.ViewModel;
 using Microsoft.Extensions.Logging;
+using MauiChartApp.Service;
 
 namespace MauiChartApp
 {
@@ -23,9 +24,14 @@ namespace MauiChartApp
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "chartapp.db3");
-            builder.Services.AddSingleton<ILogService>(new LogService(dbPath));         
-
+            string dbLogPath = Path.Combine(FileSystem.AppDataDirectory, "logs.db3");
+            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "appdb.db3");
+            ILogService log = new LogService(dbLogPath);
+            builder.Services.AddSingleton<ILogService>(log);
+            builder.Services.AddSingleton<IMonitorService>(new MonitorService(dbPath,log));
+            builder.Services.AddSingleton<IGpsService>(new GpsService());
+            builder.Services.AddSingleton<IWeatherService>(new WeatherService());   
+            
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<LogPage>();
 

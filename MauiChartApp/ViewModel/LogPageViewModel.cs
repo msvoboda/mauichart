@@ -1,8 +1,8 @@
 ﻿using Common.ViewModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiChartApp.Entity;
-using MauiChartApp.Service;
+using MauiCommon.Entity;
+using MauiCommon.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

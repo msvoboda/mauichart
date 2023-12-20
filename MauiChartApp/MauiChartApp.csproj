@@ -49,8 +49,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Remove="ChartView.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.6" />
 		<PackageReference Include="System.ObjectModel" Version="4.3.0" />
@@ -61,6 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Component\ChartView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\LogPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

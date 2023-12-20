@@ -1,8 +1,8 @@
-﻿using MauiChartApp.Entity;
+﻿using MauiCommon.Entity;
 using SQLite;
 
 
-namespace MauiChartApp.Service
+namespace MauiCommon.Service
 {
 
     public static class LogOptions
