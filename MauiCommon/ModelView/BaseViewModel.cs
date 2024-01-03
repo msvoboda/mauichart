@@ -19,6 +19,5 @@ namespace Common.ViewModel
 
         public bool IsNotLoading => !isLoading;
 
-
     }
 }

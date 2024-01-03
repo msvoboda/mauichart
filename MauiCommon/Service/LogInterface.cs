@@ -1,4 +1,5 @@
 ﻿using MauiCommon.Entity;
+using MauiCommon.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,8 @@ namespace MauiCommon.Service
         void Warning(string message, string tag = "");
 
         // Read section
-        List<LogItem> LogItems();
+        PageList<LogItem> LogItems();
+        PageList<LogItem> LogItems(int start, int count);
 
 
     }

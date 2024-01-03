@@ -8,7 +8,7 @@
             <draw:RandomLines x:Key="RandomLines"></draw:RandomLines>
         </ResourceDictionary>
     </ContentView.Resources>
-    <Border>
-        <GraphicsView x:Name="graphicsView" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"></GraphicsView>
-    </Border>
+
+    <GraphicsView x:Name="graphicsView" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"></GraphicsView>
+
 </ContentView>

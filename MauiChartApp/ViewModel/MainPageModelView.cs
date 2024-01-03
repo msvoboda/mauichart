@@ -55,6 +55,7 @@ namespace MauiChartApp.ModelView
         [ObservableProperty]
         public string temperature;
 
+
         public async Task getMeteoDataAsync(string lat, string lon)
         {
             await weatherService.getOpenMeteo(lat, lon).ContinueWith(meteo =>
@@ -62,7 +63,9 @@ namespace MauiChartApp.ModelView
                 if (meteo != null) {
                     OpenMeteo = meteo?.Result;
                     TimeSeries = ChartBuilder.buildFromOpenMeteo(OpenMeteo);
-                    Temperature = $"{openMeteo?.current.temperature_2m} Cº";
+                    NumberFormatInfo nfi = new NumberFormatInfo();
+                    nfi.NumberDecimalSeparator = ".";
+                    Temperature = $"{openMeteo?.current.temperature_2m.ToString(nfi)} Cº";
                     logService.Info(meteo?.Result?.ToString());   
                 }
             });

@@ -22,10 +22,10 @@ namespace MauiChartApp.Component
         private String _Title = "Temperature chart";
         private String _TitleX = "Date";
         private String _TitleY = "Daily";
-        private float leftMargin = 14f, topMargin = 10f, bottomMargin = 26, rightMargin = 20f;
+        private float leftMargin = 26f, topMargin = 14f, bottomMargin = 32, rightMargin = 20f;
         private float LineWidth = 1f;        
         //
-        FontDraw fontDraw = new FontDraw(); 
+        IFont fontDraw = new FontDraw(); 
         // DATA SERIES
         TimeSeries timeSeries = new TimeSeries();
         int dayHours = 128;    
@@ -44,77 +44,80 @@ namespace MauiChartApp.Component
         {
             float width = dirtyRect.Width;
             RectF rect = dirtyRect;
-            float scaleFactor = 1f;
+            float scaleFactor = canvas.DisplayScale;
+            
 
-            canvas.Font = fontDraw;
-            SizeF size = canvas.GetStringSize(_Title, new FontDraw(), 12);
+            canvas.Font = fontDraw;            
             float hourWidth = rect.Width / dayHours;
 
             // fill rectangle
             canvas.FillColor = _BackgroundColor;
             canvas.SetShadow(new SizeF(4, 4), 4, Colors.Grey);
             canvas.FillRoundedRectangle(rect.Inflate(-6f, -6f), 4);
-
-            canvas.Font = new Font("Arial");
+            fontDraw = new Font("Calibri");
+            canvas.Font = fontDraw;
             canvas.FontColor = Colors.Black;
             canvas.FontSize = 18;
             canvas.SetShadow(new SizeF(6, 6), 4, Colors.Gray);
-            canvas.DrawString(_Title, width/2-size.Width/2, (topMargin + size.Height) * scaleFactor, HorizontalAlignment.Center);
+            SizeF size = canvas.GetStringSize(_Title, fontDraw, 18);
+            canvas.DrawString(_Title, (width/2-size.Width/2), (topMargin + size.Height) , HorizontalAlignment.Left);
             canvas.ResetState();
-            canvas.FontSize = 10;
+            canvas.FontSize = 12;
             //Y Axis
-            Point ptAxis = new Point(leftMargin + 2, topMargin - 4);
-            canvas.DrawString(_TitleY, (float)ptAxis.X * scaleFactor, (float)ptAxis.Y * scaleFactor, HorizontalAlignment.Left);
+            Point ptAxis = new Point(leftMargin + 2, topMargin);
+            canvas.DrawString(_TitleY, (float)(ptAxis.X-size.Width/2) * scaleFactor, (float)ptAxis.Y * scaleFactor, HorizontalAlignment.Left);
 
             // X Axis
-            ptAxis = new Point(dirtyRect.Right - rightMargin, dirtyRect.Bottom - bottomMargin);
-            canvas.DrawString(_TitleX, (float)ptAxis.X * scaleFactor, ((float)ptAxis.Y-4) * scaleFactor, HorizontalAlignment.Left);
+            size = canvas.GetStringSize(_TitleX, new FontDraw(), 12);
+            ptAxis = new Point((float)(width-size.Width)*scaleFactor, dirtyRect.Bottom - bottomMargin);
+            canvas.DrawString(_TitleX, (float)ptAxis.X * scaleFactor, ((float)ptAxis.Y-4) * scaleFactor, HorizontalAlignment.Right);
 
             // draw axis
             canvas.StrokeColor = _ColorLine;
             //x
-            Point pt1 = new Point((rect.Left + leftMargin) * scaleFactor, (rect.Height - bottomMargin)*scaleFactor);
-            Point pt2 = new Point((rect.Width-rightMargin) * scaleFactor, (rect.Height - bottomMargin) * scaleFactor);
+            Point pt1 = new Point((rect.Left + leftMargin), (rect.Height - bottomMargin));
+            Point pt2 = new Point((rect.Width-rightMargin), (rect.Height - bottomMargin));
             canvas.StrokeSize = LineWidth;
             canvas.StrokeColor = Colors.Red;
-            canvas.DrawLine((float)pt1.X, (float)pt1.Y, (float)pt2.X, (float)pt2.Y);
+            canvas.DrawLine((float)pt1.X * scaleFactor, (float)pt1.Y * scaleFactor, (float)pt2.X * scaleFactor, (float)pt2.Y * scaleFactor);
 
             //y
-            pt1 = new Point((rect.Left + leftMargin)*scaleFactor, (rect.Bottom - bottomMargin)*scaleFactor);
-            pt2 = new Point((rect.Left + leftMargin)*scaleFactor, (rect.Top + topMargin)*scaleFactor);
-            canvas.DrawLine((float)pt1.X,(float) pt1.Y, (float)pt2.X, (float)pt2.Y);
+            pt1 = new Point((rect.Left + leftMargin), (rect.Bottom - bottomMargin));
+            pt2 = new Point((rect.Left + leftMargin), (rect.Top + topMargin));
+            canvas.DrawLine((float)pt1.X * scaleFactor,(float)pt1.Y * scaleFactor, (float)pt2.X * scaleFactor, (float)pt2.Y * scaleFactor);
 
             int idx = 0;
             if (timeSeries.Count > 0)
             {
-                float tempHeight = ((rect.Bottom-bottomMargin)-(rect.Top-topMargin)) * scaleFactor;
+                float tempHeight = ((rect.Bottom-bottomMargin)-(rect.Top-topMargin));
                 float tepmRange = (timeSeries.Max-timeSeries.Min);
                 float tempRatio = (tempHeight/tepmRange);
                 // zero
                 float valZeroY = (float) Math.Abs(timeSeries.Min * tempRatio);
-                Point zeroX = new Point((rect.Left+leftMargin) * scaleFactor, (rect.Bottom - bottomMargin - valZeroY) * scaleFactor);
-                Point zeroY = new Point((rect.Right - rightMargin) * scaleFactor, (rect.Bottom - bottomMargin - valZeroY) * scaleFactor);
+                Point zeroX = new Point((rect.Left+leftMargin), (rect.Bottom - bottomMargin - valZeroY));
+                Point zeroY = new Point((rect.Right - rightMargin), (rect.Bottom - bottomMargin - valZeroY));
                 
                 canvas.StrokeDashPattern = new float[] { 2, 2 };
                 canvas.StrokeColor = Colors.Blue;
-                canvas.DrawLine(zeroX, zeroY);
-                canvas.DrawString("0", (float)zeroX.X, (float)zeroX.Y, HorizontalAlignment.Right);
+                canvas.DrawLine((float)zeroX.X*scaleFactor, (float)zeroX.Y*scaleFactor, (float)zeroY.X*scaleFactor, (float)zeroY.Y*scaleFactor);
+                canvas.DrawString("0", (float)zeroX.X*scaleFactor, (float)zeroX.Y*scaleFactor, HorizontalAlignment.Right);
                 for (float temp = 1.0f; temp < timeSeries.Max; temp+=1.0f)
                 {
                     float valGrad = temp * tempRatio;
                     Point ptG1 = new Point(zeroX.X , zeroX.Y-valGrad);
                     Point ptG2 = new Point(zeroY.X , zeroY.Y-valGrad);
                     canvas.StrokeColor = Colors.Red;
-                    canvas.DrawLine(ptG1, ptG2);
-                    canvas.DrawString(temp.ToString(), (float)zeroX.X,(float)ptG1.Y, HorizontalAlignment.Right);
+                    canvas.DrawLine((float)ptG1.X*scaleFactor, (float)ptG1.Y*scaleFactor, (float)ptG2.X*scaleFactor, (float)ptG2.Y*scaleFactor);
+                    canvas.DrawString(temp.ToString(), (float)zeroX.X*scaleFactor,(float)ptG1.Y*scaleFactor, HorizontalAlignment.Right);
                 }
                 for (float temp = -1.0f; temp > timeSeries.Min; temp -= 1.0f)
                 {
                     float valGrad = temp * tempRatio;
-                    Point ptG1 = new Point(zeroX.X * scaleFactor, (zeroX.Y - valGrad) * scaleFactor);
-                    Point ptG2 = new Point(zeroY.X * scaleFactor, (zeroY.Y - valGrad) * scaleFactor);
+                    Point ptG1 = new Point(zeroX.X, (zeroX.Y - valGrad));
+                    Point ptG2 = new Point(zeroY.X , (zeroY.Y - valGrad));
                     canvas.StrokeColor = Colors.Blue;
-                    canvas.DrawLine(ptG1, ptG2);
+                    canvas.DrawLine((float)ptG1.X*scaleFactor, (float)ptG1.Y*scaleFactor, (float)ptG2.X*scaleFactor, (float)ptG2.Y*scaleFactor);
+                    canvas.DrawString(temp.ToString(), (float)zeroX.X * scaleFactor, (float)ptG1.Y * scaleFactor, HorizontalAlignment.Right);
                 }
 
                 canvas.StrokeDashPattern = null;
@@ -128,14 +131,14 @@ namespace MauiChartApp.Component
                         canvas.StrokeColor = Colors.Blue;
                         canvas.FillColor = Colors.Blue;
                         float y = ((rect.Bottom - bottomMargin)  - Math.Abs(timeSeries.Min-value.Value)*tempRatio);                        
-                        canvas.FillCircle(hrx, y, 2f);
+                        canvas.FillCircle(hrx*scaleFactor, y*scaleFactor, 2f);
                     }
                     else
                     {
                         canvas.StrokeColor = Colors.Red;
                         canvas.FillColor = Colors.Red;
-                        float y = (float)zeroY.Y * scaleFactor - (value.Value * tempRatio) ;
-                        canvas.FillCircle(hrx, y, 2f);
+                        float y = (float)zeroY.Y - (value.Value * tempRatio) ;
+                        canvas.FillCircle(hrx * scaleFactor, y * scaleFactor, 2f);
                     }
 
                     if (value.DateTime.Hour % 4 == 0)
@@ -145,7 +148,7 @@ namespace MauiChartApp.Component
 
                     if (value.DateTime.Date.Equals(last.Date) == false)
                     {
-                        canvas.DrawString(value.DateTime.ToString("dd.MM."), hrx * scaleFactor, (dirtyRect.Bottom - bottomMargin + 1.5f*size.Height) * scaleFactor, HorizontalAlignment.Left);
+                        canvas.DrawString(value.DateTime.ToString("dd.MM."), hrx * scaleFactor, (dirtyRect.Bottom - 1.2f*size.Height) * scaleFactor, HorizontalAlignment.Left);
                         last = value.DateTime;                    
                     }
 
@@ -163,7 +166,7 @@ namespace MauiChartApp.Component
     {
         public FontDraw() 
         {
-            Weight = 12;
+            Weight = 18;
             StyleType = FontStyleType.Normal;
         }
 

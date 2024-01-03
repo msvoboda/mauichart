@@ -55,5 +55,6 @@ namespace MauiCommon.Service
             if (_isCheckingLocation && _cancelTokenSource != null && _cancelTokenSource.IsCancellationRequested == false)
                 _cancelTokenSource.Cancel();
         }
+
     }
 }

@@ -6,14 +6,14 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45*"></RowDefinition>
-            <RowDefinition Height="60*"></RowDefinition>
+            <RowDefinition Height="30*"></RowDefinition>
+            <RowDefinition Height="70*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"></ColumnDefinition>
             <ColumnDefinition Width="50*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Frame CornerRadius="4" BackgroundColor="AliceBlue" BorderColor="Black" Margin="8">
+        <Frame CornerRadius="4" BackgroundColor="AliceBlue" BorderColor="Black" Margin="8" Padding="0">
             <HorizontalStackLayout HorizontalOptions="Center">
                 <Image
              Source="weather.png"
@@ -21,7 +21,7 @@
              HorizontalOptions="Start">
                     <Image.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" Default="128">
-                            <On Platform="Android" Value="64" />
+                            <On Platform="Android" Value="48" />
                         </OnPlatform>
                     </Image.HeightRequest>
                 </Image>
@@ -33,7 +33,7 @@
             VerticalOptions="Center" />
                     </HorizontalStackLayout>
         </Frame>
-        <Frame Grid.Column="1" BorderColor="Black" BackgroundColor="LightGoldenrodYellow" Margin="8">
+        <Frame Grid.Column="1" BorderColor="Black" BackgroundColor="LightGoldenrodYellow" Margin="8" Padding="0">
             <HorizontalStackLayout Grid.Column="1" HorizontalOptions="Center">
                 <Image
                      Source="gps.png"
@@ -41,7 +41,7 @@
                      HorizontalOptions="Start">
                     <Image.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" Default="128">
-                            <On Platform="Android" Value="64" />
+                            <On Platform="Android" Value="48" />
                         </OnPlatform>
                     </Image.HeightRequest>
                 </Image>

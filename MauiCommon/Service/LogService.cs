@@ -1,4 +1,5 @@
 ﻿using MauiCommon.Entity;
+using MauiCommon.Model;
 using SQLite;
 
 
@@ -39,9 +40,17 @@ namespace MauiCommon.Service
             Info($"DB Inizialization. Path:{_dbPath}");
 
         }
-        public List<LogItem> LogItems()
+
+        public PageList<LogItem> LogItems()
         {
-            return conn.Table<LogItem>().OrderByDescending(msg => msg.DateTime).Take(128).ToList<LogItem>();
+            return LogItems(0, 128);
+        }
+
+        public PageList<LogItem> LogItems(int startFrom, int count)
+        {
+            int totalCount = conn.Table<LogItem>().Count();
+            List<LogItem> readLines = conn.Table<LogItem>().OrderByDescending(msg => msg.DateTime).Skip(startFrom).Take(count).ToList<LogItem>();
+            return new PageList<LogItem>(readLines, startFrom, totalCount);
         }
 
         public void Debug(string message, string tag = "")

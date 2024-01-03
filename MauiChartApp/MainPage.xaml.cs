@@ -10,6 +10,7 @@ namespace MauiChartApp
         {
             InitializeComponent();
             BindingContext = viewModel;
+           
         }
     }
 }
